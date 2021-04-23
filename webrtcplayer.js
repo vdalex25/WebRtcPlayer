@@ -1,8 +1,6 @@
 class WebRtcPlayer {
    static server = '127.0.0.1:8083';
    webrtc = null;
-   webrtcSendChannel = null;
-   webrtcSendChannelInterval = null;
    video = null;
    server=null;
    codecLink = null;
@@ -38,20 +36,6 @@ class WebRtcPlayer {
             'direction': 'sendrecv'
           });
         });
-        this.webrtcSendChannel = this.webrtc.createDataChannel('foo');
-        this.webrtcSendChannel.onclose = (e) => console.log('sendChannel has closed', e);
-        this.webrtcSendChannel.onopen = () => {
-          this.webrtcSendChannel.send('ping');
-          this.webrtcSendChannelInterval = setInterval(() => {
-            if(this.webrtcSendChannel.readyState=='open'){
-              this.webrtcSendChannel.send('ping');
-            }else{
-              this.destroy();
-              this.play();
-            }
-          }, 1000)
-        }
-        this.webrtcSendChannel.onmessage = e => console.log(e.data);
        });
      })
      .catch((error) => {
@@ -95,10 +79,9 @@ class WebRtcPlayer {
    }
 
    destroy(){
-     clearInterval(this.webrtcSendChannelInterval);
+     
      this.webrtc.close();
      this.webrtc=null;
-     this.webrtcSendChannel=null;
      this.video.srcObject = null;
      this.stream = new MediaStream();
    }
