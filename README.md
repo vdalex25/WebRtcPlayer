@@ -2,7 +2,7 @@
 
 example player for [RTSPtoWebRTC](https://github.com/deepch/RTSPtoWebRTC)
 
-## Getting Started 
+## Getting Started
 
 install and run RTSPtoWebRTC server
 
@@ -23,9 +23,10 @@ WebRtcPlayer.setServer('localhost:8083');
 ```
 next step create WebRtcPlayer
 ```javascript
-let player = new WebRtcPlayer(videoElementId,stream_UUID);
-//videoElementId - id of video 
+let player = new WebRtcPlayer(videoElementId, stream_UUID  [,options]);
+//videoElementId - id of video
 //stream_UUID - name of srteam from RTSPtoWebRTC config
+//options - Object with options
 ```
 ## methods
 ### destroy player
